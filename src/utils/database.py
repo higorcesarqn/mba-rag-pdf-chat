@@ -130,19 +130,3 @@ def get_vector_store_stats(connection_string: str, collection_name: str) -> dict
             "exists": False,
             "error": str(e)
         }
-
-
-if __name__ == "__main__":
-    """Teste standalone"""
-    from config import Config
-    
-    print("\n🧪 Testando conexão com banco de dados...\n")
-    
-    success, message = test_database_connection(Config.DATABASE_URL)
-    print(f"\n{'✅' if success else '❌'} {message}\n")
-    
-    if success:
-        stats = get_vector_store_stats(Config.DATABASE_URL, Config.COLLECTION_NAME)
-        print(f"📊 Estatísticas da collection:")
-        print(f"   - Existe: {stats.get('exists', False)}")
-        print(f"   - Total documentos: {stats.get('total_documents', 0)}\n")

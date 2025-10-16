@@ -232,6 +232,11 @@ projeto1/
 │   └── utils/
 │       ├── logger.py          # Sistema de logging
 │       └── database.py        # Utilitários de banco
+├── tests/
+│   ├── test_llm_factory.py    # Testes do factory de LLM
+│   └── utils/
+│       └── test_database.py   # Testes de utilitários de banco
+├── pytest.ini                 # Configuração do pytest (pythonpath/tests)
 ├── docker-compose.yml         # PostgreSQL + pgVector
 ├── requirements.txt           # Dependências Python
 ├── .env.example               # Template de configuração
@@ -253,60 +258,42 @@ Todas as configurações estão no arquivo `.env`:
 
 ## 🧪 Testes
 
-### Testar configuração
+Os testes automatizados vivem em `tests/` e utilizam `pytest`.
 
-**Usando UV:**
+### Instalar dependências de desenvolvimento
+
+**Usando UV (recomendado):**
 
 ```bash
-uv run python -c "from src.config import Config; Config.display_config()"
+uv sync
 ```
 
-**Ou usando Python diretamente:**
+**Ou sincronizando via requirements.txt:**
 
 ```bash
-python -c "from src.config import Config; Config.display_config()"
+uv pip install -r requirements.txt
 ```
 
-### Testar LLM Factory
-
-**Usando UV:**
+### Executar a suíte completa
 
 ```bash
-uv run python src/llm_factory.py
+uv run pytest
 ```
 
-**Ou usando Python diretamente:**
+### Executar com relatório de cobertura (opcional)
 
 ```bash
-python src/llm_factory.py
+uv run pytest --cov=src --cov-report=term-missing
 ```
 
-### Testar conexão com banco
-
-**Usando UV:**
+### Ajuste manual de PYTHONPATH (apenas se ignorar o pytest.ini)
 
 ```bash
-uv run python src/utils/database.py
-```
+# Linux/macOS
+PYTHONPATH=src uv run pytest -q
 
-**Ou usando Python diretamente:**
-
-```bash
-python src/utils/database.py
-```
-
-### Testar busca (após ingestão)
-
-**Usando UV:**
-
-```bash
-uv run python src/search.py
-```
-
-**Ou usando Python diretamente:**
-
-```bash
-python src/search.py
+# Windows (PowerShell)
+$env:PYTHONPATH="src"; uv run pytest -q
 ```
 
 ## 🐛 Troubleshooting
@@ -391,17 +378,7 @@ python src/ingest.py seu_arquivo.pdf
 
 ## 📄 Licença
 
-Este projeto foi desenvolvido para fins educacionais no MBA.
-
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Sinta-se à vontade para:
-
-1. Fazer fork do projeto
-2. Criar uma branch (`git checkout -b feature/nova-funcionalidade`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
-4. Push para a branch (`git push origin feature/nova-funcionalidade`)
-5. Abrir um Pull Request
+Este projeto foi desenvolvido para fins educacionais para o Desafio MBA Engenharia de Software com IA - Full Cycle.
 
 ## 📞 Suporte
 
@@ -413,7 +390,7 @@ Se encontrar problemas:
 
 ---
 
-**Desenvolvido com ❤️ usando Python, LangChain e PostgreSQL**
+**Desenvolvido com ❤️ usando Python, LangChain, PostgreSQL e muita IA**
 
 ## Requisitos
 
@@ -462,8 +439,6 @@ RESPONDA A "PERGUNTA DO USUÁRIO"
 ```
 
 ## Estrutura obrigatória do projeto
-
-Faça um fork do repositório para utilizar a estrutura abaixo: [link](https://github.com/devfullcycle/mba-ia-desafio-ingestao-busca/)
 
 ```
 ├── docker-compose.yml

@@ -81,3 +81,10 @@ dependencies = [
 	"yarl==1.20.1",
 	"zstandard==0.24.0"
 ]
+
+[dependency-groups]
+dev = [
+	"pytest>=8.3,<9.0",
+	"pytest-asyncio>=0.24,<0.25",
+	"pytest-cov>=7.0.0",
+]
